@@ -105,7 +105,12 @@ echo Migraciones ejecutadas correctamente.
 echo.
 
 echo.
-echo --- Paso 6: Compilando assets de frontend...
+echo --- Paso 6: Creando el enlace simbolico de storage...
+php artisan storage:link
+echo.
+
+echo.
+echo --- Paso 7: Compilando assets de frontend...
 npm run build
 if %errorlevel% neq 0 (
     echo.
