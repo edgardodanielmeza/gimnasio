@@ -17,6 +17,17 @@ Asegúrate de tener el siguiente software instalado en tu sistema (Windows):
 
 ## 2. Instalación del Proyecto
 
+**Importante**: Si ya habías clonado el repositorio y tuviste un error en la instalación, primero asegúrate de tener la última versión del código y limpia tu directorio:
+
+```sh
+# Dentro del directorio del proyecto (ej. gym-management-system)
+git pull
+rm -rf vendor
+rm -f composer.lock
+```
+
+Ahora, continúa con la instalación normal.
+
 1.  **Abrir una Terminal**
     *   Puedes usar `Git Bash` (recomendado, viene con Git), `cmd` o `PowerShell`.
 
