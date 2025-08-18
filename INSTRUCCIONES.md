@@ -1,6 +1,6 @@
 # Guía de Instalación y Pruebas del Proyecto
 
-Este documento contiene todos los pasos necesarios para instalar, configurar y ejecutar el proyecto del Sistema de Gestión de Gimnasio en tu entorno local utilizando WAMP en Windows.
+Este documento contiene todos los pasos necesarios para instalar, configurar y ejecutar el proyecto del Sistema de Gestión de Gimnasio en tu entorno local.
 
 ## 1. Prerrequisitos
 
@@ -15,28 +15,13 @@ Asegúrate de tener el siguiente software instalado en tu sistema (Windows):
 4.  **Node.js y NPM**: Necesario para las dependencias de frontend.
     *   Descárgalo desde [nodejs.org](https://nodejs.org/).
 
-## 2. Instalación del Proyecto
+## 2. Instalación (Método Recomendado para Windows)
 
-**Importante**: Si ya habías clonado el repositorio y tuviste un error en la instalación, primero asegúrate de tener la última versión del código y limpia tu directorio:
+Hemos creado un script que automatiza todo el proceso de instalación y configuración.
 
-```sh
-# Dentro del directorio del proyecto (ej. gym-management-system)
-git pull
-rm -rf vendor
-rm -f composer.lock
-```
-
-Ahora, continúa con la instalación normal.
-
-1.  **Abrir una Terminal**
-    *   Puedes usar `Git Bash` (recomendado, viene con Git), `cmd` o `PowerShell`.
-
-2.  **Clonar el Repositorio**
-    *   Navega al directorio donde WAMP guarda los proyectos (normalmente `c:\wamp64\www`).
-      ```sh
-      cd c:\wamp64\www
-      ```
-    *   Clona el repositorio del proyecto (reemplaza `URL_DEL_REPOSITORIO` con la URL real de tu repositorio Git).
+1.  **Clonar el Repositorio**
+    *   Abre una terminal (`cmd`, `PowerShell` o `Git Bash`) en tu directorio de trabajo (ej. `c:\wamp64\www`).
+    *   Clona el repositorio (reemplaza `URL_DEL_REPOSITORIO` con la URL real de tu repositorio Git).
       ```sh
       git clone URL_DEL_REPOSITORIO gym-management-system
       ```
@@ -45,20 +30,50 @@ Ahora, continúa con la instalación normal.
       cd gym-management-system
       ```
 
-3.  **Instalar Dependencias de PHP**
+2.  **Ejecutar el Script de Instalación**
+    *   Simplemente ejecuta el archivo `setup.bat` haciendo doble clic en él o desde la terminal:
+      ```bat
+      setup.bat
+      ```
+    *   El script te guiará a través de la instalación, limpiará instalaciones anteriores, instalará todas las dependencias y te pedirá en un punto que configures tu base de datos.
+    *   Sigue las instrucciones que aparecen en pantalla.
+
+3.  **Iniciar el Servidor**
+    *   Una vez que el script termine, puedes iniciar el servidor de desarrollo con el comando que te sugerirá al final:
+      ```sh
+      php artisan serve
+      ```
+
+¡Y eso es todo! El método manual detallado a continuación ya no es necesario si usas el script.
+
+---
+
+<details>
+<summary>Haga clic aquí para ver los pasos de Instalación Manual (Alternativa)</summary>
+
+### A. Limpiar Instalación Anterior (Si aplica)
+Si ya habías clonado el repositorio y tuviste un error en la instalación, primero asegúrate de tener la última versión del código y limpia tu directorio:
+```sh
+# Dentro del directorio del proyecto (ej. gym-management-system)
+git pull
+rm -rf vendor
+rm -f composer.lock
+```
+
+### B. Instalar Dependencias
+1.  **Instalar Dependencias de PHP**
     *   Ejecuta Composer para instalar todas las librerías de backend.
       ```sh
       composer install
       ```
 
-4.  **Instalar Dependencias de JavaScript**
+2.  **Instalar Dependencias de JavaScript**
     *   Ejecuta NPM para instalar las dependencias de frontend.
       ```sh
       npm install
       ```
 
-## 3. Configuración del Entorno
-
+### C. Configuración del Entorno
 1.  **Crear el Archivo de Entorno (`.env`)**
     *   Copia el archivo de ejemplo.
       ```sh
@@ -72,24 +87,13 @@ Ahora, continúa con la instalación normal.
       ```
 
 3.  **Configurar la Base de Datos en `.env`**
-    *   Abre el archivo `.env` con un editor de texto.
-    *   Modifica las siguientes variables para que coincidan con la configuración de tu base de datos MySQL en WAMP. El usuario por defecto suele ser `root` sin contraseña.
-      ```dotenv
-      DB_CONNECTION=mysql
-      DB_HOST=127.0.0.1
-      DB_PORT=3306
-      DB_DATABASE=gym_management # Puedes usar este nombre o elegir otro
-      DB_USERNAME=root
-      DB_PASSWORD=
-      ```
+    *   Abre el archivo `.env` con un editor de texto y configúralo con tus datos de MySQL.
 
 4.  **Crear la Base de Datos en MySQL**
-    *   Asegúrate de que tu servidor WAMP esté en línea.
-    *   Abre `phpMyAdmin` (normalmente en `http://localhost/phpmyadmin`).
-    *   Crea una nueva base de datos con el mismo nombre que pusiste en `DB_DATABASE` (ej. `gym_management`). Utiliza la codificación `utf8mb4_unicode_ci`.
+    *   Abre `phpMyAdmin` y crea una nueva base de datos con el mismo nombre que pusiste en el archivo `.env`.
 
 5.  **Ejecutar las Migraciones**
-    *   Este comando creará todas las tablas de la aplicación en tu base de datos.
+    *   Este comando creará todas las tablas de la aplicación.
       ```sh
       php artisan migrate
       ```
@@ -99,8 +103,9 @@ Ahora, continúa con la instalación normal.
       ```sh
       npm run build
       ```
+</details>
 
-## 4. Ejecución y Pruebas
+## 3. Ejecución y Pruebas
 
 1.  **Iniciar el Servidor de Desarrollo**
     *   Ejecuta el siguiente comando para iniciar el servidor local de Laravel.
@@ -110,17 +115,13 @@ Ahora, continúa con la instalación normal.
 
 2.  **Acceder a la Aplicación**
     *   Abre tu navegador y visita la dirección `http://127.0.0.1:8000`.
-    *   Deberías ver la página de bienvenida de Laravel.
 
 3.  **Pruebas Funcionales**
-    *   **Registro y Login**: Haz clic en "Register" en la esquina superior derecha. Crea una nueva cuenta y luego inicia sesión.
-    *   **Dashboard**: Deberías ser redirigido al Dashboard de la aplicación.
+    *   **Registro y Login**: Crea una nueva cuenta y luego inicia sesión.
+    *   **Dashboard**: Deberías ser redirigido al Dashboard.
     *   **Gestión de Sucursales**:
-        *   Haz clic en el enlace "Sucursales" en el menú de navegación.
-        *   **Crear**: Haz clic en el botón "Crear Sucursal", llena el formulario y guarda. Deberías ver un mensaje de éxito y la nueva sucursal en la tabla.
-        *   **Buscar**: Escribe en el campo de búsqueda para filtrar las sucursales por nombre o dirección.
-        *   **Editar**: Haz clic en el botón "Editar" de una sucursal, modifica los datos y actualiza. Los cambios deberían reflejarse en la tabla.
-        *   **Eliminar**: Haz clic en el botón "Eliminar" y confirma la acción. La sucursal debería desaparecer de la tabla.
+        *   Accede a la sección "Sucursales".
+        *   Prueba crear, editar, buscar y eliminar sucursales.
 
 ---
-Si sigues todos estos pasos, tendrás una copia funcional del proyecto corriendo en tu máquina local.
+Si sigues estos pasos, tendrás una copia funcional del proyecto corriendo en tu máquina local.
