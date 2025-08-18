@@ -1,5 +1,4 @@
 @echo off
-chcp 65001 > nul
 echo.
 echo =======================================================
 echo      Asistente de Configuracion para Gym Management
@@ -119,7 +118,7 @@ echo.
 
 echo.
 echo =======================================================
-echo      ¡Configuracion completada con exito!
+echo      Configuracion completada con exito!
 echo =======================================================
 echo.
 echo Para iniciar el servidor de desarrollo, ejecuta:
