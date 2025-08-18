@@ -19,15 +19,13 @@ Asegúrate de tener el siguiente software instalado en tu sistema (Windows):
 
 Hemos creado un script que automatiza todo el proceso de instalación y configuración.
 
-1.  **Clonar el Repositorio**
-    *   Abre una terminal (`cmd`, `PowerShell` o `Git Bash`) en tu directorio de trabajo (ej. `c:\wamp64\www`).
-    *   Clona el repositorio (reemplaza `URL_DEL_REPOSITORIO` con la URL real de tu repositorio Git).
+1.  **Descargar y Preparar el Proyecto**
+    *   Descarga el código fuente del proyecto como un archivo ZIP desde GitHub.
+    *   Descomprime el archivo ZIP en tu directorio de trabajo de WAMP (ej. `c:\wamp64\www`).
+    *   Renombra la carpeta descomprimida a `gym-management-system` para que la ruta sea `c:\wamp64\www\gym-management-system`.
+    *   Abre una terminal (`cmd`, `PowerShell` o `Git Bash`) y accede a ese directorio:
       ```sh
-      git clone URL_DEL_REPOSITORIO gym-management-system
-      ```
-    *   Accede al directorio del proyecto.
-      ```sh
-      cd gym-management-system
+      cd c:\wamp64\www\gym-management-system
       ```
 
 2.  **Ejecutar el Script de Instalación**
@@ -51,16 +49,7 @@ Hemos creado un script que automatiza todo el proceso de instalación y configur
 <details>
 <summary>Haga clic aquí para ver los pasos de Instalación Manual (Alternativa)</summary>
 
-### A. Limpiar Instalación Anterior (Si aplica)
-Si ya habías clonado el repositorio y tuviste un error en la instalación, primero asegúrate de tener la última versión del código y limpia tu directorio:
-```sh
-# Dentro del directorio del proyecto (ej. gym-management-system)
-git pull
-rm -rf vendor
-rm -f composer.lock
-```
-
-### B. Instalar Dependencias
+### A. Instalar Dependencias
 1.  **Instalar Dependencias de PHP**
     *   Ejecuta Composer para instalar todas las librerías de backend.
       ```sh
