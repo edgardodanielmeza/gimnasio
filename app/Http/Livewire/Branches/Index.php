@@ -28,7 +28,7 @@ class Index extends Component
 
         return view('livewire.branches.index', [
             'branches' => $branches,
-        ]);
+        ])->layout('layouts.app');
     }
 
     public function create()
