@@ -33,9 +33,10 @@ Hemos creado un script que automatiza todo el proceso de instalación y configur
       ```bat
       setup.bat
       ```
-    *   El script te guiará a través de la instalación, limpiará instalaciones anteriores, instalará todas las dependencias y te pedirá en un punto que configures tu base de datos.
+    *   Aparecerá un menú interactivo.
+    *   **Opción 0 (Recomendada):** Selecciona la opción `0` para una instalación automática completa. El script ejecutará todos los pasos necesarios en orden.
+    *   **Opciones 1-7:** Si un paso falla o si quieres re-ejecutar una parte específica del proceso, puedes seleccionar las opciones individuales (ej. `2` para instalar solo las dependencias de Composer).
     *   Se generará un archivo `setup.log` con el registro detallado de toda la operación. Si encuentras un error, revisa este archivo para más detalles.
-    *   Sigue las instrucciones que aparecen en pantalla.
 
 3.  **Iniciar el Servidor**
     *   Una vez que el script termine, puedes iniciar el servidor de desarrollo con el comando que te sugerirá al final:
