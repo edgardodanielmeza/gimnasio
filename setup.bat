@@ -1,76 +1,87 @@
 @echo off
-echo.
+set LOGFILE=setup.log
+
 echo =======================================================
 echo      Asistente de Configuracion para Gym Management
 echo =======================================================
 echo.
 echo Este script instalara las dependencias y configurara el entorno.
-echo Asegurate de ejecutarlo DESDE el directorio del proyecto:
-echo C:\wamp64\www\gym-management-system
-echo.
-echo Asegurate de que Git, Composer, PHP y Node.js esten en el PATH del sistema.
+echo Se generara un archivo de registro llamado '%LOGFILE%'.
 echo.
 pause
 echo.
 
-echo.
-echo --- Limpiando instalacion anterior (si existe)...
+del %LOGFILE% 2>nul
+echo [INFO] Log de instalacion para Gym Management > %LOGFILE%
+echo [INFO] Fecha: %date% %time% >> %LOGFILE%
+echo. >> %LOGFILE%
+
+echo --- Limpiando instalacion anterior...
+echo --- Limpiando instalacion anterior... >> %LOGFILE%
 if exist vendor (
     echo Eliminando directorio 'vendor'...
-    rmdir /s /q vendor
+    rmdir /s /q vendor >> %LOGFILE% 2>&1
 )
 if exist composer.lock (
     echo Eliminando 'composer.lock'...
-    del composer.lock
+    del composer.lock >> %LOGFILE% 2>&1
 )
 echo Limpieza finalizada.
-echo.
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 1: Instalando dependencias de PHP (Composer)...
-composer install
+echo --- Paso 1: Instalando dependencias de PHP (Composer)... >> %LOGFILE%
+composer install >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo ERROR: 'composer install' fallo. Por favor, revisa el output.
+    echo ERROR: 'composer install' fallo. Revisa %LOGFILE% para mas detalles.
+    echo [ERROR] 'composer install' fallo. >> %LOGFILE%
     pause
     exit /b %errorlevel%
 )
 echo Dependencias de PHP instaladas.
-echo.
+echo [SUCCESS] Dependencias de PHP instaladas. >> %LOGFILE%
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 2: Instalando dependencias de JS (NPM)...
-npm install
+echo --- Paso 2: Instalando dependencias de JS (NPM)... >> %LOGFILE%
+npm install >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo ERROR: 'npm install' fallo. Por favor, revisa el output.
+    echo ERROR: 'npm install' fallo. Revisa %LOGFILE% para mas detalles.
+    echo [ERROR] 'npm install' fallo. >> %LOGFILE%
     pause
     exit /b %errorlevel%
 )
 echo Dependencias de JS instaladas.
-echo.
+echo [SUCCESS] Dependencias de JS instaladas. >> %LOGFILE%
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 3: Configurando archivo de entorno .env...
+echo --- Paso 3: Configurando archivo de entorno .env... >> %LOGFILE%
 if not exist .env (
-    copy .env.example .env
+    copy .env.example .env >> %LOGFILE% 2>&1
     echo Archivo .env creado.
+    echo [SUCCESS] Archivo .env creado. >> %LOGFILE%
 ) else (
     echo El archivo .env ya existe. Omitiendo creacion.
+    echo [INFO] El archivo .env ya existe. Omitiendo creacion. >> %LOGFILE%
 )
-echo.
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 4: Generando la clave de la aplicacion...
-php artisan key:generate
+echo --- Paso 4: Generando la clave de la aplicacion... >> %LOGFILE%
+php artisan key:generate >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo ERROR: 'php artisan key:generate' fallo.
+    echo ERROR: 'php artisan key:generate' fallo. Revisa %LOGFILE% para mas detalles.
+    echo [ERROR] 'php artisan key:generate' fallo. >> %LOGFILE%
     pause
     exit /b %errorlevel%
 )
 echo Clave de aplicacion generada.
-echo.
+echo [SUCCESS] Clave de aplicacion generada. >> %LOGFILE%
+echo. >> %LOGFILE%
 
 echo.
 echo =======================================================
@@ -80,51 +91,50 @@ echo.
 echo Por favor, abre el archivo '.env' en un editor de texto y configura tus
 echo credenciales de base de datos.
 echo.
-echo Ejemplo:
-echo DB_DATABASE=gym_management
-echo DB_USERNAME=root
-echo DB_PASSWORD=
-echo.
-echo Luego, crea una base de datos vacia con el nombre que especificaste
-echo (ej. 'gym_management') desde phpMyAdmin o tu cliente de MySQL preferido.
-echo.
 pause
 echo.
 
-echo.
 echo --- Paso 5: Ejecutando las migraciones de la base de datos...
-php artisan migrate
+echo --- Paso 5: Ejecutando las migraciones de la base de datos... >> %LOGFILE%
+php artisan migrate >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo ERROR: 'php artisan migrate' fallo.
-    echo Asegurate de que la base de datos fue creada y las credenciales en .env son correctas.
+    echo ERROR: 'php artisan migrate' fallo. Revisa %LOGFILE% para mas detalles.
+    echo [ERROR] 'php artisan migrate' fallo. >> %LOGFILE%
     pause
     exit /b %errorlevel%
 )
 echo Migraciones ejecutadas correctamente.
-echo.
+echo [SUCCESS] Migraciones ejecutadas correctamente. >> %LOGFILE%
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 6: Creando el enlace simbolico de storage...
-php artisan storage:link
-echo.
+echo --- Paso 6: Creando el enlace simbolico de storage... >> %LOGFILE%
+php artisan storage:link >> %LOGFILE% 2>&1
+echo [INFO] Enlace simbolico de storage creado o ya existente. >> %LOGFILE%
+echo. >> %LOGFILE%
 
-echo.
 echo --- Paso 7: Compilando assets de frontend...
-npm run build
+echo --- Paso 7: Compilando assets de frontend... >> %LOGFILE%
+npm run build >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
-    echo ERROR: 'npm run build' fallo.
+    echo ERROR: 'npm run build' fallo. Revisa %LOGFILE% para mas detalles.
+    echo [ERROR] 'npm run build' fallo. >> %LOGFILE%
     pause
     exit /b %errorlevel%
 )
 echo Assets compilados.
-echo.
+echo [SUCCESS] Assets compilados. >> %LOGFILE%
+echo. >> %LOGFILE%
+
 
 echo.
 echo =======================================================
 echo      Configuracion completada con exito!
 echo =======================================================
+echo.
+echo Se ha generado un registro detallado en el archivo '%LOGFILE%'.
 echo.
 echo Para iniciar el servidor de desarrollo, ejecuta:
 echo php artisan serve

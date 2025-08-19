@@ -34,6 +34,7 @@ Hemos creado un script que automatiza todo el proceso de instalación y configur
       setup.bat
       ```
     *   El script te guiará a través de la instalación, limpiará instalaciones anteriores, instalará todas las dependencias y te pedirá en un punto que configures tu base de datos.
+    *   Se generará un archivo `setup.log` con el registro detallado de toda la operación. Si encuentras un error, revisa este archivo para más detalles.
     *   Sigue las instrucciones que aparecen en pantalla.
 
 3.  **Iniciar el Servidor**
