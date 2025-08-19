@@ -31,7 +31,7 @@ echo. >> %LOGFILE%
 
 echo --- Paso 1: Instalando dependencias de PHP (Composer)...
 echo --- Paso 1: Instalando dependencias de PHP (Composer)... >> %LOGFILE%
-composer install >> %LOGFILE% 2>&1
+call composer install >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: 'composer install' fallo. Revisa %LOGFILE% para mas detalles.
@@ -45,7 +45,7 @@ echo. >> %LOGFILE%
 
 echo --- Paso 2: Instalando dependencias de JS (NPM)...
 echo --- Paso 2: Instalando dependencias de JS (NPM)... >> %LOGFILE%
-npm install >> %LOGFILE% 2>&1
+call npm install >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: 'npm install' fallo. Revisa %LOGFILE% para mas detalles.
@@ -116,7 +116,7 @@ echo. >> %LOGFILE%
 
 echo --- Paso 7: Compilando assets de frontend...
 echo --- Paso 7: Compilando assets de frontend... >> %LOGFILE%
-npm run build >> %LOGFILE% 2>&1
+call npm run build >> %LOGFILE% 2>&1
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: 'npm run build' fallo. Revisa %LOGFILE% para mas detalles.
