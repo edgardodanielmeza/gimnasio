@@ -5,17 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sucursal extends Model
+class Miembro extends Model
 {
     use HasFactory;
 
-    protected $table = 'sucursales';
+    protected $table = 'miembros';
 
     protected $fillable = [
-        'nombre',
+        'documento_identidad',
+        'nombres',
+        'apellidos',
         'direccion',
         'telefono',
+        'email',
+        'fecha_nacimiento',
+        'ruta_foto',
     ];
+
+    public function membresias()
+    {
+        return $this->hasMany(Membresia::class);
+    }
 
     public function registrosAcceso()
     {
