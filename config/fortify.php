@@ -59,7 +59,7 @@ return [
         'password-reset' => null,
     ],
     'features' => [
-        Features::registration(),
+        // Features::registration(), // Disabled as per user request
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::updateProfileInformation(),
