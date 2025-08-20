@@ -90,8 +90,8 @@ echo =================================================================
 echo      ¡Proyecto base creado con exito!
 echo =================================================================
 echo.
-echo El siguiente paso sera que yo te proporcione las funcionalidades
-echo especificas del gimnasio.
+echo El siguiente paso sera configurar Git para subir este proyecto
+echo base al repositorio. Te dare las instrucciones para ello.
 echo.
 pause
 endlocal
