@@ -40,20 +40,10 @@
                             <div>
                                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Bienvenido</h2>
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    Este es el sistema de gestion para el gimnasio. Por favor, inicia sesion o registrate para continuar.
+                                    Este es el sistema de gestion para el gimnasio. Por favor, inicia sesion para continuar.
                                 </p>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm sm:text-left">
-                        &nbsp;
-                    </div>
-
-                    <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
             </div>
