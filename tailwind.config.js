@@ -19,5 +19,10 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [forms, typography, require('daisyui')],
+
+    // Opcional: Configura temas de DaisyUI
+    daisyui: {
+        themes: ["light", "dark", "cupcake"],
+    },
 };
