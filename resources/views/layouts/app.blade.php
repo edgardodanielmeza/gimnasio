@@ -16,6 +16,17 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <!-- Theme Manager Script -->
+        <script>
+            const savedTheme = localStorage.getItem('theme') || 'black';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+        </script>
     </head>
     <body class="font-sans antialiased">
         <x-banner />
