@@ -30,7 +30,7 @@ class UserManagement extends Component
         return view('livewire.user-management', [
             'users' => $users,
             'roles' => $roles
-        ]);
+        ])->layout('layouts.app');
     }
 
     public function create()
