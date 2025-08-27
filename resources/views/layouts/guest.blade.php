@@ -16,9 +16,20 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <!-- Theme Manager Script -->
+        <script>
+            const savedTheme = localStorage.getItem('theme') || 'black';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+
+            function setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+        </script>
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
+    <body class="font-sans antialiased bg-base-200 text-base-content">
+        <div class="font-sans text-base-content antialiased">
             {{ $slot }}
         </div>
 
