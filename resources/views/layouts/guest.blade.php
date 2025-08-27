@@ -29,6 +29,9 @@
         </script>
     </head>
     <body class="font-sans antialiased bg-base-200 text-base-content">
+        <div class="absolute top-4 right-4 z-10">
+            <x-theme-switcher />
+        </div>
         <div class="font-sans text-base-content antialiased">
             {{ $slot }}
         </div>

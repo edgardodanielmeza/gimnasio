@@ -1,8 +1,4 @@
-<div class="relative min-h-screen flex items-center justify-center">
-    <div class="absolute top-4 right-4 z-10">
-        <x-theme-switcher />
-    </div>
-
+<x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -49,4 +45,4 @@
             </div>
         </form>
     </x-authentication-card>
-</div>
+</x-guest-layout>
