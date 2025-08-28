@@ -6,7 +6,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-use App\Http\Livewire\UserManagement;
+use App\Livewire\UserManagement;
 
 Route::middleware([
     'auth:sanctum',
