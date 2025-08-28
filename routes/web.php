@@ -1,13 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ThemeController;
+use App\Livewire\UserManagement;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
-use App\Http\Controllers\ThemeController;
-use App\Livewire\UserManagement;
 
 Route::post('/theme/set', [ThemeController::class, 'set'])->name('theme.set');
 
