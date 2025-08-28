@@ -6,7 +6,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+use App\Http\Controllers\ThemeController;
 use App\Livewire\UserManagement;
+
+Route::post('/theme/set', [ThemeController::class, 'set'])->name('theme.set');
 
 Route::middleware([
     'auth:sanctum',
