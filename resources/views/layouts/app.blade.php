@@ -28,10 +28,10 @@
             }
         </script>
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased bg-base-200 text-base-content">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
