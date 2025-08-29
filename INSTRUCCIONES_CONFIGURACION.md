@@ -59,5 +59,17 @@ Esto creará los roles 'Administrador' y 'Recepcionista', y dos usuarios de prue
 ## 5. Dependencias Frontend Adicionales (CDN)
 Para las notificaciones de confirmación (por ejemplo, al eliminar un usuario), el CRUD de Usuarios utiliza la librería `SweetAlert2`. Se carga directamente desde una CDN en la vista, por lo que no requiere instalación manual vía `npm`.
 
+## 6. Enlazar el Almacenamiento
+Para que las fotos de los miembros sean visibles públicamente, ejecuta este comando:
+```bash
+php artisan storage:link
+```
+
+## 7. Actualizar Datos de Prueba (Seeders)
+Cada vez que se añaden nuevos roles o permisos, es bueno re-ejecutar los seeders. El siguiente comando borrará tu base de datos y la volverá a crear con los nuevos permisos. **¡Cuidado, esto borra todos los datos!**
+```bash
+php artisan migrate:fresh --seed
+```
+
 ---
 *Este archivo se actualizará a medida que se agreguen nuevas instrucciones.*

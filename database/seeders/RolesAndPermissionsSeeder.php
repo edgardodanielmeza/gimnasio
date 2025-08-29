@@ -24,9 +24,12 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'update users']);
         Permission::create(['name' => 'delete users']);
 
-        // Crear otros permisos (ejemplos)
+        // Crear permisos para la gestión del gimnasio
+        Permission::create(['name' => 'manage sucursales']);
+        Permission::create(['name' => 'manage membership types']);
         Permission::create(['name' => 'manage members']);
         Permission::create(['name' => 'manage payments']);
+        Permission::create(['name' => 'manage asistencias']);
         Permission::create(['name' => 'view reports']);
 
 
@@ -39,7 +42,8 @@ class RolesAndPermissionsSeeder extends Seeder
         $roleRecepcionista->givePermissionTo([
             'read users',
             'manage members',
-            'manage payments'
+            'manage payments',
+            'manage asistencias'
         ]);
 
         // Crear usuario administrador por defecto

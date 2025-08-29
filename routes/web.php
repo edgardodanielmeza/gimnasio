@@ -32,4 +32,17 @@ Route::middleware([
 
     // User Management Route
     Route::get('/users', UserManagement::class)->name('users.index');
+
+    // Sucursales Management Route
+    Route::get('/sucursales', \App\Livewire\SucursalManagement::class)->name('sucursales.index');
+
+    // Tipos de Membresía Management Route
+    Route::get('/tipos-membresia', \App\Livewire\TipoMembresiaManagement::class)->name('tipos-membresia.index');
+
+    // Miembros Management Route
+    Route::get('/miembros', \App\Livewire\MiembroManagement::class)->name('miembros.index');
+    Route::get('/miembros/{miembro}', \App\Livewire\MiembroShow::class)->name('miembros.show');
+
+    // Asistencia Management Route
+    Route::get('/asistencias', \App\Livewire\AsistenciaManagement::class)->name('asistencias.index');
 });

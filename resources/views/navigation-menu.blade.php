@@ -5,10 +5,14 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <li><x-responsive-nav-link href="{{ route('asistencias.index') }}" :active="request()->routeIs('asistencias.index')">{{ __('Asistencia') }}</x-responsive-nav-link></li>
                 <li><x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">{{ __('Dashboard') }}</x-responsive-nav-link></li>
                 @can('read users')
                     <li><x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">{{ __('Usuarios') }}</x-responsive-nav-link></li>
                 @endcan
+                <li><x-responsive-nav-link href="{{ route('sucursales.index') }}" :active="request()->routeIs('sucursales.index')">{{ __('Sucursales') }}</x-responsive-nav-link></li>
+                <li><x-responsive-nav-link href="{{ route('tipos-membresia.index') }}" :active="request()->routeIs('tipos-membresia.index')">{{ __('Tipos de Membresía') }}</x-responsive-nav-link></li>
+                <li><x-responsive-nav-link href="{{ route('miembros.index') }}" :active="request()->routeIs('miembros.index')">{{ __('Miembros') }}</x-responsive-nav-link></li>
             </ul>
         </div>
         <a href="{{ route('dashboard') }}" class="btn btn-ghost text-xl">
@@ -17,10 +21,14 @@
         </a>
         <div class="hidden sm:flex ml-4">
             <ul class="menu menu-horizontal px-1">
+                <li><x-nav-link href="{{ route('asistencias.index') }}" :active="request()->routeIs('asistencias.index')">{{ __('Asistencia') }}</x-nav-link></li>
                 <li><x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">{{ __('Dashboard') }}</x-nav-link></li>
                 @can('read users')
                     <li><x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">{{ __('Usuarios') }}</x-nav-link></li>
                 @endcan
+                <li><x-nav-link href="{{ route('sucursales.index') }}" :active="request()->routeIs('sucursales.index')">{{ __('Sucursales') }}</x-nav-link></li>
+                <li><x-nav-link href="{{ route('tipos-membresia.index') }}" :active="request()->routeIs('tipos-membresia.index')">{{ __('Tipos de Membresía') }}</x-nav-link></li>
+                <li><x-nav-link href="{{ route('miembros.index') }}" :active="request()->routeIs('miembros.index')">{{ __('Miembros') }}</x-nav-link></li>
             </ul>
         </div>
     </div>
