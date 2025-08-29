@@ -33,12 +33,11 @@ class SettingsServiceProvider extends ServiceProvider
                     Config::set('app.name', $settings['app_name']);
                 }
 
-                if ($settings->has('app_theme')) {
-                    Config::set('app.theme', $settings['app_theme']);
-                    View::share('theme', $settings['app_theme']);
-                } else {
-                    View::share('theme', 'dark'); // Default fallback
-                }
+                // Share both light and dark themes for the new toggle switch logic
+                $lightTheme = $settings->get('theme_light', 'garden');
+                $darkTheme = $settings->get('theme_dark', 'dark');
+                View::share('theme_light', $lightTheme);
+                View::share('theme_dark', $darkTheme);
 
                 if ($settings->has('app_logo')) {
                     Config::set('app.logo', $settings['app_logo']);

@@ -22,7 +22,8 @@ return new class extends Migration
         // Seed with default values
         Setting::create(['key' => 'app_name', 'value' => 'Gym Management']);
         Setting::create(['key' => 'app_logo', 'value' => null]);
-        Setting::create(['key' => 'app_theme', 'value' => 'dark']);
+        Setting::create(['key' => 'theme_light', 'value' => 'garden']);
+        Setting::create(['key' => 'theme_dark', 'value' => 'dark']);
         Setting::create(['key' => 'app_currency', 'value' => '$']);
     }
 

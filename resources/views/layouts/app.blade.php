@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="{{ $theme ?? 'dark' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +15,35 @@
 
         <!-- Styles -->
         @livewireStyles
+
+        <!-- Theme Manager Script -->
+        <script>
+            const lightTheme = '{{ $theme_light ?? 'garden' }}';
+            const darkTheme = '{{ $theme_dark ?? 'dark' }}';
+            let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+            function applyTheme() {
+                document.documentElement.setAttribute('data-theme', isDarkMode ? darkTheme : lightTheme);
+                const toggle = document.getElementById('theme-toggle-checkbox');
+                if(toggle) {
+                    toggle.checked = isDarkMode;
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const toggle = document.getElementById('theme-toggle-checkbox');
+                if(toggle) {
+                    toggle.addEventListener('change', function() {
+                        isDarkMode = this.checked;
+                        localStorage.setItem('isDarkMode', isDarkMode);
+                        applyTheme();
+                    });
+                }
+            });
+
+            // Apply theme on initial load
+            applyTheme();
+        </script>
     </head>
     <body class="font-sans antialiased bg-base-200 text-base-content">
         <x-banner />

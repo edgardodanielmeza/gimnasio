@@ -33,15 +33,26 @@
                                 @error('app_currency') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
-                            <!-- App Theme -->
+                            <!-- Light Theme -->
                             <div class="form-control">
-                                <label for="app_theme" class="label"><span class="label-text">Tema de la Aplicación</span></label>
-                                <select id="app_theme" wire:model="app_theme" class="select select-bordered w-full">
+                                <label for="theme_light" class="label"><span class="label-text">Tema para Modo Claro</span></label>
+                                <select id="theme_light" wire:model="theme_light" class="select select-bordered w-full">
                                     @foreach($themes as $theme)
                                         <option value="{{ $theme }}">{{ ucfirst($theme) }}</option>
                                     @endforeach
                                 </select>
-                                @error('app_theme') <span class="text-error">{{ $message }}</span>@enderror
+                                @error('theme_light') <span class="text-error">{{ $message }}</span>@enderror
+                            </div>
+
+                            <!-- Dark Theme -->
+                            <div class="form-control">
+                                <label for="theme_dark" class="label"><span class="label-text">Tema para Modo Oscuro</span></label>
+                                <select id="theme_dark" wire:model="theme_dark" class="select select-bordered w-full">
+                                    @foreach($themes as $theme)
+                                        <option value="{{ $theme }}">{{ ucfirst($theme) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('theme_dark') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
                             <!-- App Logo -->

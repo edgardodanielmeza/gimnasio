@@ -15,24 +15,24 @@ class SettingsManagement extends Component
     public $settings;
     public $app_name;
     public $app_logo;
-    public $app_theme;
+    public $theme_light;
+    public $theme_dark;
     public $app_currency;
     public $new_logo;
 
     public function mount()
     {
-        // Cargar todas las configuraciones en un array asociativo y luego a propiedades
         $this->settings = Setting::pluck('value', 'key');
         $this->app_name = $this->settings['app_name'] ?? 'Gym Management';
         $this->app_logo = $this->settings['app_logo'] ?? null;
-        $this->app_theme = $this->settings['app_theme'] ?? 'dark';
+        $this->theme_light = $this->settings['theme_light'] ?? 'garden';
+        $this->theme_dark = $this->settings['theme_dark'] ?? 'dark';
         $this->app_currency = $this->settings['app_currency'] ?? '$';
     }
 
     public function render()
     {
-        abort_if(!auth()->user()->can('manage settings'), 403);
-
+        // Get all themes for the dropdowns
         $themes = config('daisyui.themes', ['light', 'dark']);
         return view('livewire.settings-management', [
             'themes' => $themes
@@ -43,23 +43,23 @@ class SettingsManagement extends Component
     {
         $this->validate([
             'app_name' => 'required|string|max:255',
-            'app_theme' => 'required|string|max:50',
+            'theme_light' => 'required|string|max:50',
+            'theme_dark' => 'required|string|max:50',
             'app_currency' => 'required|string|max:5',
-            'new_logo' => 'nullable|image|max:1024', // 1MB Max
+            'new_logo' => 'nullable|image|max:1024',
         ]);
 
         $settingsToUpdate = [
             'app_name' => $this->app_name,
-            'app_theme' => $this->app_theme,
+            'theme_light' => $this->theme_light,
+            'theme_dark' => $this->theme_dark,
             'app_currency' => $this->app_currency,
         ];
 
         if ($this->new_logo) {
-            // Eliminar el logo anterior si existe
             if ($this->app_logo) {
                 Storage::disk('public')->delete($this->app_logo);
             }
-            // Guardar el nuevo logo
             $settingsToUpdate['app_logo'] = $this->new_logo->store('logos', 'public');
         }
 
@@ -67,10 +67,8 @@ class SettingsManagement extends Component
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
         }
 
-        // Limpiar la caché de configuración para que los cambios se reflejen globalmente
         Artisan::call('config:clear');
-
         session()->flash('message', 'Configuración guardada exitosamente.');
-        $this->mount(); // Recargar los datos
+        $this->mount();
     }
 }
