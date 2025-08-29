@@ -45,4 +45,7 @@ Route::middleware([
 
     // Asistencia Management Route
     Route::get('/asistencias', \App\Livewire\AsistenciaManagement::class)->name('asistencias.index');
+
+    // Settings Management Route
+    Route::get('/configuracion', \App\Livewire\SettingsManagement::class)->name('settings.index');
 });

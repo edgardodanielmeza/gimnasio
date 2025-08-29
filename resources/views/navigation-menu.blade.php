@@ -16,7 +16,11 @@
             </ul>
         </div>
         <a href="{{ route('dashboard') }}" class="btn btn-ghost text-xl">
-            <x-application-mark class="block h-9 w-auto" />
+            @if (isset($logo) && $logo)
+                <img src="{{ asset('storage/' . $logo) }}" alt="{{ config('app.name', 'Laravel') }}" class="block h-9 w-auto">
+            @else
+                <x-application-mark class="block h-9 w-auto" />
+            @endif
             <span class="hidden sm:inline ms-2">{{ config('app.name', 'Laravel') }}</span>
         </a>
         <div class="hidden sm:flex ml-4">
@@ -74,6 +78,9 @@
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-52">
                 <li class="menu-title"><span>{{ __('Manage Account') }}</span></li>
                 <li><a href="{{ route('profile.show') }}">{{ __('Profile') }}</a></li>
+                @can('manage settings')
+                    <li><a href="{{ route('settings.index') }}">{{ __('Settings') }}</a></li>
+                @endcan
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <li><a href="{{ route('api-tokens.index') }}">{{ __('API Tokens') }}</a></li>
                 @endif

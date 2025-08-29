@@ -31,6 +31,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'manage payments']);
         Permission::create(['name' => 'manage asistencias']);
         Permission::create(['name' => 'view reports']);
+        Permission::create(['name' => 'manage settings']);
 
 
         // Crear rol de Administrador y asignarle todos los permisos

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="{{ $theme ?? 'dark' }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,17 +16,6 @@
 
         <!-- Styles -->
         @livewireStyles
-
-        <!-- Theme Manager Script -->
-        <script>
-            const savedTheme = localStorage.getItem('theme') || 'black';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-
-            function setTheme(theme) {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-            }
-        </script>
     </head>
     <body class="font-sans antialiased bg-base-200 text-base-content">
         <div class="absolute top-4 right-4 z-10">
