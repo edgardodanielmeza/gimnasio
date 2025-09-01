@@ -18,36 +18,34 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Crear permisos para la gestión de usuarios
+        // User Management Permissions
         Permission::create(['name' => 'create users']);
         Permission::create(['name' => 'read users']);
         Permission::create(['name' => 'update users']);
         Permission::create(['name' => 'delete users']);
 
-        // Crear permisos para la gestión del gimnasio
+        // Gym Management Permissions
         Permission::create(['name' => 'manage sucursales']);
         Permission::create(['name' => 'manage membership types']);
         Permission::create(['name' => 'manage members']);
         Permission::create(['name' => 'manage payments']);
         Permission::create(['name' => 'manage asistencias']);
-        Permission::create(['name' => 'view reports']);
         Permission::create(['name' => 'manage settings']);
+        Permission::create(['name' => 'view reports']);
 
-
-        // Crear rol de Administrador y asignarle todos los permisos
+        // Create Roles and assign permissions
         $roleAdmin = Role::create(['name' => 'Administrador']);
         $roleAdmin->givePermissionTo(Permission::all());
 
-        // Crear rol de Recepcionista y asignarle permisos específicos
         $roleRecepcionista = Role::create(['name' => 'Recepcionista']);
         $roleRecepcionista->givePermissionTo([
             'read users',
             'manage members',
             'manage payments',
-            'manage asistencias'
+            'manage asistencias',
         ]);
 
-        // Crear usuario administrador por defecto
+        // Create a default Admin user
         $adminUser = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@gym.com',
@@ -55,7 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
         ]);
         $adminUser->assignRole($roleAdmin);
 
-        // Crear usuario recepcionista de ejemplo
+        // Create a default Receptionist user
         $receptionistUser = User::factory()->create([
             'name' => 'Recepcionista',
             'email' => 'recepcion@gym.com',

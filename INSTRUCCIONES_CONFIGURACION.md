@@ -1,75 +1,48 @@
 # Instrucciones de Configuración y Puesta en Marcha
 
-Esta guía detalla los pasos para configurar el proyecto, instalar dependencias y aplicar las configuraciones iniciales. Ejecuta los comandos en una terminal en la raíz del proyecto.
+Esta guía detalla los pasos para configurar el proyecto, instalar dependencias y aplicar las configuraciones iniciales.
 
-## 1. Instalar Dependencias
+## 1. Requisitos Previos
+- PHP 8.1+
+- Composer
+- Node.js & npm
+- Git
+- Una base de datos MySQL vacía.
 
-### Backend (PHP - Composer)
-```bash
-# Instalar Spatie Laravel Permission para manejo de roles y permisos
-composer require spatie/laravel-permission
+## 2. Instalación
+1.  Clona el repositorio.
+2.  Copia el archivo `.env.example` a `.env`: `copy .env.example .env` (en Windows) o `cp .env.example .env` (en Linux/Mac).
+3.  Configura tus credenciales de base de datos en el archivo `.env`.
+4.  Instala las dependencias de PHP: `composer install`
+5.  Instala las dependencias de JavaScript: `npm install`
+6.  Genera la clave de la aplicación: `php artisan key:generate`
 
-# Publicar el archivo de configuración de Spatie
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
-```
+## 3. Configuración de la Base de Datos
+1.  Publica los archivos de configuración de Spatie/permission:
+    ```bash
+    php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+    ```
+2.  Ejecuta las migraciones y los seeders. Esto creará todas las tablas y los datos iniciales (roles, permisos, configuraciones por defecto, y usuarios de prueba).
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+3.  Enlaza la carpeta de almacenamiento para que las imágenes subidas (como los logos) sean visibles.
+    ```bash
+    php artisan storage:link
+    ```
 
-### Frontend (Node - npm)
-```bash
-# Instalar DaisyUI para componentes de Tailwind CSS
-npm install -D daisyui@latest
-```
+## 4. Compilación de Assets y Ejecución
+1.  Compila los archivos de frontend (CSS y JS).
+    ```bash
+    npm run build
+    ```
+2.  Para un desarrollo más fluido, es recomendable tener dos terminales abiertas:
+    -   En la primera: `npm run dev` (vigila y compila los cambios de frontend automáticamente).
+    -   En la segunda: `php artisan serve` (inicia el servidor de desarrollo de Laravel).
 
-## 2. Compilar Estilos
-Después de instalar las dependencias de frontend, compila los assets:
-```bash
-npm run build
-```
+## 5. Acceso a la Aplicación
+-   **URL:** http://127.0.0.1:8000 (o la que indique `php artisan serve`).
+-   **Usuario Administrador:** `admin@gym.com`
+-   **Contraseña:** `password`
 
-## 3. Configurar la Base de Datos
-Asegúrate de que tu archivo `.env` tenga las credenciales correctas para tu base de datos MySQL.
-
-**Ejemplo de configuración en `.env`:**
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=gym_management_system
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-Una vez configurado, ejecuta las migraciones para crear la estructura de la base de datos.
-
-```bash
-# Ejecuta todas las migraciones (iniciales y las nuevas del sistema)
-php artisan migrate
-```
-**Nota:** Se han añadido las nuevas migraciones para el sistema de gimnasio. Ejecuta el comando anterior para crear todas las tablas.
-
-## 4. Ejecutar Seeders (Datos Iniciales)
-Después de ejecutar las migraciones, puebla la base de datos con los roles, permisos y usuarios iniciales.
-
-```bash
-php artisan db:seed
-```
-Esto creará los roles 'Administrador' y 'Recepcionista', y dos usuarios de prueba:
-- **Usuario:** `admin@gym.com` | **Contraseña:** `password`
-- **Usuario:** `recepcion@gym.com` | **Contraseña:** `password`
-
-## 5. Dependencias Frontend Adicionales (CDN)
-Para las notificaciones de confirmación (por ejemplo, al eliminar un usuario), el CRUD de Usuarios utiliza la librería `SweetAlert2`. Se carga directamente desde una CDN en la vista, por lo que no requiere instalación manual vía `npm`.
-
-## 6. Enlazar el Almacenamiento
-Para que las fotos de los miembros sean visibles públicamente, ejecuta este comando:
-```bash
-php artisan storage:link
-```
-
-## 7. Actualizar Datos de Prueba (Seeders)
-Cada vez que se añaden nuevos roles o permisos, es bueno re-ejecutar los seeders. El siguiente comando borrará tu base de datos y la volverá a crear con los nuevos permisos. **¡Cuidado, esto borra todos los datos!**
-```bash
-php artisan migrate:fresh --seed
-```
-
----
-*Este archivo se actualizará a medida que se agreguen nuevas instrucciones.*
+Con estos pasos, la aplicación debería estar completamente funcional.

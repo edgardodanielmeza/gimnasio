@@ -58,7 +58,7 @@
 
                             @if ($photo)
                                 <div class="mt-2">
-                                    <p>Previsualización:</p>
+                                    <p>Previsualización Nuevo Logo:</p>
                                     <img src="{{ $photo->temporaryUrl() }}" class="w-24 h-24 object-cover rounded">
                                 </div>
                             @elseif ($existing_photo)

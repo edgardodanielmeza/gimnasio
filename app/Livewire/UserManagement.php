@@ -21,8 +21,7 @@ class UserManagement extends Component
 
     public function render()
     {
-        // Asegurarse que solo usuarios con permiso puedan ver la página
-        abort_if(Gate::denies('read users'), 403);
+        abort_if(!auth()->user()->can('read users'), 403);
 
         $users = User::with('roles')->paginate(10);
         $roles = Role::all();
@@ -35,14 +34,14 @@ class UserManagement extends Component
 
     public function create()
     {
-        abort_if(Gate::denies('create users'), 403);
+        abort_if(!auth()->user()->can('create users'), 403);
         $this->resetInputFields();
         $this->openModal();
     }
 
     public function store()
     {
-        abort_if(Gate::denies('create users'), 403);
+        abort_if(!auth()->user()->can('create users'), 403);
 
         $this->validate([
             'name' => 'required|string|max:255',
@@ -67,7 +66,7 @@ class UserManagement extends Component
 
     public function edit($id)
     {
-        abort_if(Gate::denies('update users'), 403);
+        abort_if(!auth()->user()->can('update users'), 403);
 
         $user = User::findOrFail($id);
         $this->userId = $id;
@@ -80,7 +79,7 @@ class UserManagement extends Component
 
     public function update()
     {
-        abort_if(Gate::denies('update users'), 403);
+        abort_if(!auth()->user()->can('update users'), 403);
 
         $this->validate([
             'name' => 'required|string|max:255',
@@ -109,7 +108,7 @@ class UserManagement extends Component
 
     public function confirmDelete($id)
     {
-        abort_if(Gate::denies('delete users'), 403);
+        abort_if(!auth()->user()->can('delete users'), 403);
 
         $this->dispatchBrowserEvent('swal:confirm', [
             'type' => 'warning',
@@ -121,7 +120,7 @@ class UserManagement extends Component
 
     public function delete($id)
     {
-        abort_if(Gate::denies('delete users'), 403);
+        abort_if(!auth()->user()->can('delete users'), 403);
 
         User::find($id)->delete();
         session()->flash('message', 'Usuario eliminado exitosamente.');

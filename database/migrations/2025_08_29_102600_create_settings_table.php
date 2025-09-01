@@ -19,7 +19,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Seed with default values
         Setting::create(['key' => 'app_name', 'value' => 'Gym Management']);
         Setting::create(['key' => 'app_logo', 'value' => null]);
         Setting::create(['key' => 'theme_light', 'value' => 'garden']);

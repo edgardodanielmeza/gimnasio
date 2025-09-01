@@ -3,17 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ThemeController;
 use App\Livewire\UserManagement;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Livewire\SucursalManagement;
+use App\Livewire\TipoMembresiaManagement;
+use App\Livewire\MiembroManagement;
+use App\Livewire\MiembroShow;
+use App\Livewire\AsistenciaManagement;
+use App\Livewire\SettingsManagement;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -30,22 +25,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    // User Management Route
     Route::get('/users', UserManagement::class)->name('users.index');
-
-    // Sucursales Management Route
-    Route::get('/sucursales', \App\Livewire\SucursalManagement::class)->name('sucursales.index');
-
-    // Tipos de Membresía Management Route
-    Route::get('/tipos-membresia', \App\Livewire\TipoMembresiaManagement::class)->name('tipos-membresia.index');
-
-    // Miembros Management Route
-    Route::get('/miembros', \App\Livewire\MiembroManagement::class)->name('miembros.index');
-    Route::get('/miembros/{miembro}', \App\Livewire\MiembroShow::class)->name('miembros.show');
-
-    // Asistencia Management Route
-    Route::get('/asistencias', \App\Livewire\AsistenciaManagement::class)->name('asistencias.index');
-
-    // Settings Management Route
-    Route::get('/configuracion', \App\Livewire\SettingsManagement::class)->name('settings.index');
+    Route::get('/sucursales', SucursalManagement::class)->name('sucursales.index');
+    Route::get('/tipos-membresia', TipoMembresiaManagement::class)->name('tipos-membresia.index');
+    Route::get('/miembros', MiembroManagement::class)->name('miembros.index');
+    Route::get('/miembros/{miembro}', MiembroShow::class)->name('miembros.show');
+    Route::get('/asistencias', AsistenciaManagement::class)->name('asistencias.index');
+    Route::get('/configuracion', SettingsManagement::class)->name('settings.index');
 });

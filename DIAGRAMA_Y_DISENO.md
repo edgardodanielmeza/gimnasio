@@ -10,20 +10,15 @@ classDiagram
         +int id
         +string name
         +string email
-        +string password
-        +string profile_photo_path
         +int sucursal_id
-        +hasMany(Pago)
-        +hasMany(Asistencia)
-        +belongsTo(Sucursal)
         +hasRole()
+        +belongsTo(Sucursal)
     }
 
     class Sucursal {
         +int id
         +string nombre
         +string direccion
-        +string telefono
         +hasMany(User)
         +hasMany(Miembro)
     }
@@ -33,10 +28,7 @@ classDiagram
         +string documento_identidad
         +string nombre
         +string apellido
-        +string telefono
         +string email
-        +date fecha_nacimiento
-        +string foto_path
         +int sucursal_registro_id
         +hasMany(Membresia)
         +hasMany(Asistencia)
@@ -45,8 +37,7 @@ classDiagram
 
     class TipoMembresia {
         +int id
-        +string nombre (e.g., "Mensual", "Anual")
-        +string descripcion
+        +string nombre
         +float precio
         +int duracion_dias
     }
@@ -57,7 +48,7 @@ classDiagram
         +int tipo_membresia_id
         +date fecha_inicio
         +date fecha_fin
-        +string estado ('activa', 'vencida', 'suspendida')
+        +string estado
         +belongsTo(Miembro)
         +belongsTo(TipoMembresia)
         +hasMany(Pago)
@@ -68,8 +59,7 @@ classDiagram
         +int membresia_id
         +int user_id_receptor
         +float monto
-        +string metodo_pago ('efectivo', 'tarjeta')
-        +datetime fecha_pago
+        +string metodo_pago
         +belongsTo(Membresia)
         +belongsTo(User)
     }
@@ -84,46 +74,45 @@ classDiagram
         +belongsTo(Sucursal)
     }
 
-    User "1" -- "0..*" Pago : "registra"
+    class Setting {
+        +int id
+        +string key
+        +string value
+    }
+
     User "1" -- "1" Sucursal : "pertenece a"
-    Sucursal "1" -- "0..*" User : "tiene"
-    Sucursal "1" -- "0..*" Miembro : "registra en"
-    Miembro "1" -- "1..*" Membresia : "tiene"
-    Miembro "1" -- "0..*" Asistencia : "registra"
-    TipoMembresia "1" -- "0..*" Membresia : "es de tipo"
-    Membresia "1" -- "1..*" Pago : "se paga con"
+    Sucursal "1" -- "0..*" User
+    Sucursal "1" -- "0..*" Miembro
+    Miembro "1" -- "1..*" Membresia
+    Miembro "1" -- "0..*" Asistencia
+    TipoMembresia "1" -- "0..*" Membresia
+    Membresia "1" -- "0..*" Pago
+    User "1" -- "0..*" Pago : "registra"
 ```
 
 ## 2. Descripción de Modelos Eloquent
 
 ### User
 - Representa a los empleados del gimnasio (Administrador, Recepcionista).
-- Se relaciona con `Sucursal` para saber a qué sucursal pertenece el empleado.
-- Utiliza `spatie/laravel-permission` para la gestión de roles.
-- Registra los `Pagos` que recibe.
+- Utiliza `spatie/laravel-permission` para roles.
 
 ### Sucursal
 - Representa una de las ubicaciones físicas del gimnasio.
-- Contiene usuarios (empleados) y miembros registrados en esa sucursal.
 
 ### Miembro
-- La tabla central, representa a los clientes del gimnasio.
-- El `documento_identidad` es su identificador único para el acceso.
-- Tiene un historial de `Membresias`.
-- Se registra en una sucursal principal (`sucursal_registro_id`) pero puede tener `Asistencia` en cualquiera.
+- Representa a los clientes del gimnasio. El `documento_identidad` es su clave.
 
 ### TipoMembresia
-- Define los planes que ofrece el gimnasio (ej. Mensual, Trimestral, Anual).
-- Contiene el precio y la duración de cada tipo de membresía.
+- Define los planes que ofrece el gimnasio (ej. Mensual, Anual).
 
 ### Membresia
-- Representa la suscripción de un `Miembro` a un `TipoMembresia`.
-- Tiene una fecha de inicio, fin y un estado para controlar el acceso.
+- La suscripción de un `Miembro` a un `TipoMembresia`.
 
 ### Pago
 - Registra cada pago realizado para una `Membresia`.
-- Guarda quién (`User`) recibió el pago.
 
 ### Asistencia
-- Registra cada ingreso y salida de un `Miembro` en una `Sucursal`.
-- Permite el control de acceso y genera reportes de afluencia.
+- Registra cada ingreso y salida de un `Miembro`.
+
+### Setting
+- Almacena la configuración global de la aplicación en formato clave-valor (ej. tema, logo, nombre de la app).

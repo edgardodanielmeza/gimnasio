@@ -19,5 +19,13 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [
+        forms,
+        typography,
+        require('daisyui')
+    ],
+
+    daisyui: {
+        themes: true, // Enables all themes
+    },
 };

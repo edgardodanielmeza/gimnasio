@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Miembro;
 use App\Models\Asistencia;
+use App\Models\Sucursal;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class AsistenciaManagement extends Component
@@ -53,7 +55,6 @@ class AsistenciaManagement extends Component
     {
         if (!$this->miembro || !$this->activeMembresia) return;
 
-        // Verificar si ya hay un check-in abierto hoy
         $existingCheckIn = Asistencia::where('miembro_id', $this->miembro->id)
             ->whereNull('fecha_hora_salida')
             ->whereDate('fecha_hora_ingreso', today())
@@ -67,13 +68,13 @@ class AsistenciaManagement extends Component
 
         Asistencia::create([
             'miembro_id' => $this->miembro->id,
-            'sucursal_id' => Auth::user()->sucursal_id ?? Sucursal::first()->id, // Asignar sucursal del recepcionista o la primera
+            'sucursal_id' => Auth::user()->sucursal_id ?? Sucursal::first()->id,
             'fecha_hora_ingreso' => now(),
         ]);
 
         $this->message = 'Ingreso registrado exitosamente.';
         $this->messageType = 'success';
-        $this->reset('search'); // Limpiar búsqueda para el siguiente
+        $this->reset('search');
     }
 
     public function checkOut()

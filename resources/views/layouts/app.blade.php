@@ -47,6 +47,7 @@
     </head>
     <body class="font-sans antialiased bg-base-200 text-base-content">
         <x-banner />
+
         <div class="min-h-screen">
             @livewire('navigation-menu')
 
@@ -66,7 +67,9 @@
         </div>
 
         @stack('modals')
+
         @livewireScripts
+
         @stack('scripts')
     </body>
 </html>

@@ -23,17 +23,14 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Check if the settings table exists to avoid errors during initial migrations
         if (Schema::hasTable('settings')) {
             try {
                 $settings = Setting::pluck('value', 'key');
 
-                // Set application config values from database settings
                 if ($settings->has('app_name')) {
                     Config::set('app.name', $settings['app_name']);
                 }
 
-                // Share both light and dark themes for the new toggle switch logic
                 $lightTheme = $settings->get('theme_light', 'garden');
                 $darkTheme = $settings->get('theme_dark', 'dark');
                 View::share('theme_light', $lightTheme);
@@ -51,8 +48,7 @@ class SettingsServiceProvider extends ServiceProvider
                 }
 
             } catch (\Exception $e) {
-                // Log the error or handle it gracefully
-                // This can prevent crashes if the database is not ready
+                // Fails gracefully if db is not ready
                 return;
             }
         }

@@ -27,7 +27,7 @@ class MiembroShow extends Component
 
     public function mount(Miembro $miembro)
     {
-        $this->miembro = $miembro->load('membresias.tipoMembresia', 'membresias.pagos');
+        $this->miembro = $miembro->load('membresias.tipoMembresia', 'membresias.pagos.receptor');
         $this->fecha_inicio = today()->format('Y-m-d');
     }
 
@@ -61,11 +61,11 @@ class MiembroShow extends Component
             'tipo_membresia_id' => $this->tipo_membresia_id,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $fechaFin,
-            'estado' => 'pendiente', // Se activa con el primer pago
+            'estado' => 'pendiente',
         ]);
 
         $this->showMembresiaModal = false;
-        $this->mount($this->miembro); // Recargar datos
+        $this->mount($this->miembro);
         session()->flash('message', 'Nueva membresía añadida.');
     }
 
@@ -94,13 +94,12 @@ class MiembroShow extends Component
             'fecha_pago' => now(),
         ]);
 
-        // Activar membresía si estaba pendiente y la fecha de inicio es hoy o antes
         if ($membresia->estado === 'pendiente' && Carbon::parse($membresia->fecha_inicio)->isToday() || Carbon::parse($membresia->fecha_inicio)->isPast()) {
             $membresia->update(['estado' => 'activa']);
         }
 
         $this->showPagoModal = false;
-        $this->mount($this->miembro); // Recargar datos
+        $this->mount($this->miembro);
         session()->flash('message', 'Pago registrado exitosamente.');
     }
 }

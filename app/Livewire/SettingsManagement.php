@@ -32,7 +32,6 @@ class SettingsManagement extends Component
 
     public function render()
     {
-        // Get all themes for the dropdowns
         $themes = config('daisyui.themes', ['light', 'dark']);
         return view('livewire.settings-management', [
             'themes' => $themes

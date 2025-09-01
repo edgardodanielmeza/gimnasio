@@ -19,21 +19,18 @@
                     <form wire:submit.prevent="update">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                            <!-- App Name -->
                             <div class="form-control">
                                 <label for="app_name" class="label"><span class="label-text">Nombre de la Aplicación</span></label>
                                 <input type="text" id="app_name" wire:model.lazy="app_name" class="input input-bordered w-full">
                                 @error('app_name') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
-                            <!-- App Currency -->
                             <div class="form-control">
                                 <label for="app_currency" class="label"><span class="label-text">Símbolo de Moneda</span></label>
                                 <input type="text" id="app_currency" wire:model.lazy="app_currency" class="input input-bordered w-full">
                                 @error('app_currency') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
-                            <!-- Light Theme -->
                             <div class="form-control">
                                 <label for="theme_light" class="label"><span class="label-text">Tema para Modo Claro</span></label>
                                 <select id="theme_light" wire:model="theme_light" class="select select-bordered w-full">
@@ -44,7 +41,6 @@
                                 @error('theme_light') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
-                            <!-- Dark Theme -->
                             <div class="form-control">
                                 <label for="theme_dark" class="label"><span class="label-text">Tema para Modo Oscuro</span></label>
                                 <select id="theme_dark" wire:model="theme_dark" class="select select-bordered w-full">
@@ -55,8 +51,7 @@
                                 @error('theme_dark') <span class="text-error">{{ $message }}</span>@enderror
                             </div>
 
-                            <!-- App Logo -->
-                            <div class="form-control">
+                            <div class="form-control md:col-span-2">
                                 <label for="new_logo" class="label"><span class="label-text">Logo de la Aplicación</span></label>
                                 <input type="file" id="new_logo" wire:model="new_logo" class="file-input file-input-bordered w-full">
                                 @error('new_logo') <span class="text-error">{{ $message }}</span>@enderror
