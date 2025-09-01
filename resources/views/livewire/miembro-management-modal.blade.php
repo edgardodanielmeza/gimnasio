@@ -49,6 +49,20 @@
                             </select>
                             @error('sucursal_registro_id') <span class="text-error">{{ $message }}</span>@enderror
                         </div>
+
+                        @if(!$miembro_id)
+                            <div>
+                                <label for="tipo_membresia_inicial_id" class="label"><span class="label-text">Membresía Inicial</span></label>
+                                <select id="tipo_membresia_inicial_id" wire:model="tipo_membresia_inicial_id" class="select select-bordered w-full">
+                                    <option value="">Seleccione una membresía</option>
+                                    @foreach(\App\Models\TipoMembresia::all() as $tipo)
+                                        <option value="{{ $tipo->id }}">{{ $tipo->nombre }} ({{ number_format($tipo->precio) }})</option>
+                                    @endforeach
+                                </select>
+                                @error('tipo_membresia_inicial_id') <span class="text-error">{{ $message }}</span>@enderror
+                            </div>
+                        @endif
+
                         <div>
                             <label for="photo" class="label"><span class="label-text">Foto</span></label>
                             <input type="file" id="photo" wire:model="photo" class="file-input file-input-bordered w-full">

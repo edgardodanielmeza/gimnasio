@@ -16,6 +16,7 @@ class MiembroManagement extends Component
 
     public $isOpen = false;
     public $miembro_id, $documento_identidad, $nombre, $apellido, $telefono, $email, $fecha_nacimiento, $sucursal_registro_id;
+    public $tipo_membresia_inicial_id; // For the initial membership
     public $photo;
     public $existing_photo;
     public $search = '';
@@ -60,13 +61,14 @@ class MiembroManagement extends Component
         $this->email = '';
         $this->fecha_nacimiento = '';
         $this->sucursal_registro_id = '';
+        $this->tipo_membresia_inicial_id = '';
         $this->photo = null;
         $this->existing_photo = null;
     }
 
     public function store()
     {
-        $this->validate([
+        $rules = [
             'documento_identidad' => 'required|string|max:20|unique:miembros,documento_identidad,' . $this->miembro_id,
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -74,8 +76,14 @@ class MiembroManagement extends Component
             'telefono' => 'nullable|string|max:20',
             'fecha_nacimiento' => 'nullable|date',
             'sucursal_registro_id' => 'required|exists:sucursales,id',
-            'photo' => 'nullable|image|max:1024', // 1MB Max
-        ]);
+            'photo' => 'nullable|image|max:1024',
+        ];
+
+        if (!$this->miembro_id) {
+            $rules['tipo_membresia_inicial_id'] = 'required|exists:tipos_membresia,id';
+        }
+
+        $this->validate($rules);
 
         $data = [
             'documento_identidad' => $this->documento_identidad,
@@ -91,10 +99,28 @@ class MiembroManagement extends Component
             $data['foto_path'] = $this->photo->store('fotos_miembros', 'public');
         }
 
-        Miembro::updateOrCreate(['id' => $this->miembro_id], $data);
+        $miembro = Miembro::updateOrCreate(['id' => $this->miembro_id], $data);
+
+        if (!$this->miembro_id && $this->tipo_membresia_inicial_id) {
+            $tipoMembresia = \App\Models\TipoMembresia::find($this->tipo_membresia_inicial_id);
+
+            $membresia = $miembro->membresias()->create([
+                'tipo_membresia_id' => $tipoMembresia->id,
+                'fecha_inicio' => now(),
+                'fecha_fin' => now()->addDays($tipoMembresia->duracion_dias),
+                'estado' => 'activa',
+            ]);
+
+            $membresia->pagos()->create([
+                'user_id_receptor' => auth()->id(),
+                'monto' => $tipoMembresia->precio,
+                'metodo_pago' => 'efectivo',
+                'fecha_pago' => now(),
+            ]);
+        }
 
         session()->flash('message',
-            $this->miembro_id ? 'Miembro actualizado exitosamente.' : 'Miembro creado exitosamente.');
+            $this->miembro_id ? 'Miembro actualizado exitosamente.' : 'Miembro creado exitosamente con membresía y pago inicial.');
 
         $this->closeModal();
         $this->resetInputFields();

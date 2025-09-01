@@ -26,10 +26,15 @@ Esta guía detalla los pasos para configurar el proyecto, instalar dependencias 
     ```bash
     php artisan migrate:fresh --seed
     ```
-3.  Enlaza la carpeta de almacenamiento para que las imágenes subidas (como los logos) sean visibles.
+3.  **Enlaza la carpeta de almacenamiento (Paso Importante para las Imágenes).** Para que las fotos de los miembros (y el logo) sean visibles, necesitas crear un "acceso directo" desde tu carpeta `public` a tu carpeta `storage`.
     ```bash
     php artisan storage:link
     ```
+    **Nota para usuarios de Windows:** A veces, este comando falla si no se ejecuta con los permisos correctos. Si las imágenes no se ven después de ejecutarlo, intenta lo siguiente:
+    1. Cierra tu terminal actual.
+    2. Busca tu programa de terminal (CMD, PowerShell, etc.), haz clic derecho sobre él y selecciona "Ejecutar como administrador".
+    3. Navega de nuevo a la carpeta de tu proyecto.
+    4. Ejecuta `php artisan storage:link` otra vez.
 
 ## 4. Compilación de Assets y Ejecución
 1.  Compila los archivos de frontend (CSS y JS).

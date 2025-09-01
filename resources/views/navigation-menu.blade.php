@@ -58,15 +58,15 @@
             </div>
             <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52">
                 <li class="menu-title"><span>{{ Auth::user()->name }}</span></li>
-                <li><a href="{{ route('profile.show') }}">{{ __('Profile') }}</a></li>
+                <li><a href="{{ route('profile.show') }}">{{ __('Perfil') }}</a></li>
                 @can('manage settings')
-                    <li><a href="{{ route('settings.index') }}">{{ __('Settings') }}</a></li>
+                    <li><a href="{{ route('settings.index') }}">{{ __('Configuración') }}</a></li>
                 @endcan
                 <div class="divider my-1"></div>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
-                        <a href="{{ route('logout') }}" @click.prevent="$root.submit();">{{ __('Log Out') }}</a>
+                        <a href="{{ route('logout') }}" @click.prevent="$root.submit();">{{ __('Cerrar Sesión') }}</a>
                     </form>
                 </li>
             </ul>
