@@ -62,6 +62,6 @@ class StatCards extends Component
 
     public function render()
     {
-        return view('livewire.stat-cards');
+        return view('livewire.admin-day-stat-cards');
     }
 }

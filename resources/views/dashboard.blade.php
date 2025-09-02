@@ -1,16 +1,8 @@
-<x-app-layout>
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold text-base-content">Dashboard</h2>
-            <p class="text-base-content/70">Resumen de actividades y estadísticas del gimnasio</p>
-        </div>
-
+<x-admin-day-layout>
+    <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
         <livewire:stat-cards />
 
-        {{--
-            Aquí es donde, en el futuro, podremos añadir
-            las otras tarjetas y el gráfico de barras.
-        --}}
+        {{-- Aquí se pueden añadir más componentes en el futuro, como los gráficos --}}
 
-    </main>
-</x-app-layout>
+    </div>
+</x-admin-day-layout>
