@@ -23,7 +23,7 @@
     <!--Container-->
     <div class="container w-full mx-auto pt-20">
         <main>
-            {{ $slot }}
+            @yield('content')
         </main>
     </div>
     <!--/container-->
